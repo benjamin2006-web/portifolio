@@ -15,18 +15,48 @@
     <style>
         * {
             font-family: 'Poppins', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+        
+        /* Light Mode (Default) */
+        :root {
+            --bg-gradient-start: #667eea;
+            --bg-gradient-end: #764ba2;
+            --text-color: #333;
+            --text-light: #666;
+            --bg-light: rgba(255,255,255,0.95);
+            --card-bg: rgba(255,255,255,0.95);
+            --footer-bg: #1a1a2e;
+            --footer-text: white;
+            --navbar-bg: rgba(255,255,255,0.95);
+            --shadow-color: rgba(0,0,0,0.1);
+        }
+        
+        /* Dark Mode */
+        [data-theme="dark"] {
+            --bg-gradient-start: #1a1a2e;
+            --bg-gradient-end: #16213e;
+            --text-color: #fff;
+            --text-light: #e0e0e0;
+            --bg-light: rgba(30,30,46,0.95);
+            --card-bg: #2a2a3a;
+            --footer-bg: #0f0f1a;
+            --footer-text: #fff;
+            --navbar-bg: rgba(30,30,46,0.95);
+            --shadow-color: rgba(255,255,255,0.1);
         }
         
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
             min-height: 100vh;
+            color: var(--text-color);
         }
         
         /* Navbar Styles */
         .navbar {
-            background: rgba(255, 255, 255, 0.95) !important;
+            background: var(--navbar-bg) !important;
             backdrop-filter: blur(10px);
-            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 20px var(--shadow-color);
         }
         
         .navbar-brand {
@@ -36,7 +66,7 @@
         }
         
         .nav-link {
-            color: #333 !important;
+            color: var(--text-color) !important;
             font-weight: 500;
             margin: 0 10px;
             transition: all 0.3s ease;
@@ -45,6 +75,27 @@
         .nav-link:hover {
             color: #667eea !important;
             transform: translateY(-2px);
+        }
+        
+        /* Theme Toggle & Language Switch */
+        .theme-toggle, .lang-switch {
+            cursor: pointer;
+            padding: 8px 15px;
+            border-radius: 50px;
+            background: var(--card-bg);
+            color: var(--text-color);
+            border: 1px solid var(--shadow-color);
+            margin: 0 5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .theme-toggle:hover, .lang-switch:hover {
+            background: #667eea;
+            color: white;
+            transform: scale(1.05);
         }
         
         /* Hero Section */
@@ -58,9 +109,15 @@
             height: 300px;
             border-radius: 50%;
             border: 5px solid white;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 30px var(--shadow-color);
             object-fit: cover;
             animation: float 3s ease-in-out infinite;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .profile-img:hover {
+            transform: scale(1.05) rotate(5deg);
         }
         
         @keyframes float {
@@ -108,19 +165,20 @@
         }
         
         .skill-card {
-            background: rgba(255,255,255,0.95);
+            background: var(--card-bg);
             padding: 30px;
             border-radius: 20px;
             text-align: center;
             margin: 15px 0;
             transition: all 0.3s ease;
             cursor: pointer;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 20px var(--shadow-color);
+            color: var(--text-color);
         }
         
         .skill-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            box-shadow: 0 15px 30px var(--shadow-color);
         }
         
         .skill-icon {
@@ -133,13 +191,13 @@
             font-size: 1.2rem;
             font-weight: 600;
             margin-bottom: 15px;
-            color: #333;
+            color: var(--text-color);
         }
         
         .progress {
             height: 10px;
             border-radius: 5px;
-            margin-top: 15px;
+            background: rgba(102, 126, 234, 0.2);
         }
         
         .progress-bar {
@@ -153,23 +211,30 @@
         }
         
         .project-card {
-            background: white;
+            background: var(--card-bg);
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px var(--shadow-color);
             transition: all 0.3s ease;
             height: 100%;
+            color: var(--text-color);
         }
         
         .project-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            box-shadow: 0 20px 40px var(--shadow-color);
         }
         
         .project-img {
             width: 100%;
             height: 200px;
             object-fit: cover;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .project-img:hover {
+            transform: scale(1.1);
         }
         
         .project-body {
@@ -179,7 +244,7 @@
         .project-title {
             font-weight: 600;
             margin-bottom: 10px;
-            color: #333;
+            color: var(--text-color);
         }
         
         .project-tech {
@@ -189,15 +254,15 @@
         }
         
         .project-desc {
-            color: #666;
+            color: var(--text-light);
             margin-bottom: 20px;
             line-height: 1.6;
         }
         
         /* Footer */
         .footer {
-            background: #1a1a2e;
-            color: white;
+            background: var(--footer-bg);
+            color: var(--footer-text);
             padding: 60px 0 30px;
             border-radius: 50px 50px 0 0;
         }
@@ -254,29 +319,6 @@
             font-size: 0.9rem;
         }
         
-        /* Interactive Elements */
-        .glow-effect {
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .glow-effect::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-        }
-        
-        .glow-effect:hover::after {
-            opacity: 1;
-        }
-        
         /* Responsive Design */
         @media (max-width: 768px) {
             .hero-title {
@@ -301,10 +343,100 @@
                 height: 50px;
                 font-size: 1.5rem;
             }
+            
+            .theme-toggle, .lang-switch {
+                padding: 5px 10px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-gradient-start);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+        
+        .loading.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #fff;
+            border-bottom-color: #667eea;
+            border-radius: 50%;
+            animation: rotate 1s linear infinite;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Image Gallery Modal */
+        .gallery-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .gallery-modal.active {
+            display: flex;
+        }
+        
+        .gallery-content {
+            max-width: 90%;
+            max-height: 90%;
+        }
+        
+        .gallery-content img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        
+        .close-gallery {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
         }
     </style>
 </head>
-<body>
+<body data-theme="light">
+    <!-- Loading Animation -->
+    <div class="loading" id="loading">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Image Gallery Modal -->
+    <div class="gallery-modal" id="galleryModal">
+        <span class="close-gallery" onclick="closeGallery()">&times;</span>
+        <div class="gallery-content">
+            <img id="galleryImage" src="" alt="Gallery Image">
+        </div>
+    </div>
+
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
@@ -318,18 +450,28 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#home">Home</a>
+                        <a class="nav-link" href="#home" data-i18n="nav.home">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#skills">Skills</a>
+                        <a class="nav-link" href="#skills" data-i18n="nav.skills">Skills</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#projects">Projects</a>
+                        <a class="nav-link" href="#projects" data-i18n="nav.projects">Projects</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#contact">Contact</a>
+                        <a class="nav-link" href="#contact" data-i18n="nav.contact">Contact</a>
                     </li>
                 </ul>
+                <div class="d-flex ms-3">
+                    <div class="theme-toggle" onclick="toggleTheme()">
+                        <i class="bi bi-sun-fill" id="themeIcon"></i>
+                        <span id="themeText">Light</span>
+                    </div>
+                    <div class="lang-switch" onclick="toggleLanguage()">
+                        <i class="bi bi-globe"></i>
+                        <span id="langText">EN</span>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
@@ -342,25 +484,27 @@
                     <h1 class="hero-title">Benjamin Sibomana</h1>
                     <p class="hero-subtitle">
                         <i class="bi bi-arrow-right-circle me-2"></i>
-                        Software Developer | A2 Degree
+                        <span data-i18n="hero.subtitle">Software Developer | A2 Degree</span>
                     </p>
-                    <p class="mb-4" style="font-size: 1.1rem; opacity: 0.9;">
+                    <p class="mb-4" style="font-size: 1.1rem; opacity: 0.9;" data-i18n="hero.description">
                         Passionate about building scalable applications with modern technologies.
                         Specialized in backend development with Go, Express, and Fastify.
                     </p>
                     <div class="d-flex gap-3 justify-content-center justify-content-lg-start">
                         <a href="#contact" class="btn btn-light btn-lg px-4 py-3 rounded-pill">
-                            <i class="bi bi-envelope me-2"></i>Hire Me
+                            <i class="bi bi-envelope me-2"></i><span data-i18n="hero.hire">Hire Me</span>
                         </a>
                         <a href="#projects" class="btn btn-outline-light btn-lg px-4 py-3 rounded-pill">
-                            <i class="bi bi-eye me-2"></i>View Work
+                            <i class="bi bi-eye me-2"></i><span data-i18n="hero.viewWork">View Work</span>
                         </a>
                     </div>
                 </div>
                 <div class="col-lg-6 text-center mt-5 mt-lg-0">
-                    <img src="https://via.placeholder.com/300x300/667eea/ffffff?text=BENJAMIN" 
+                    <img src="https://drive.google.com/uc?export=view&id=YOUR_GOOGLE_DRIVE_IMAGE_ID" 
                          alt="Benjamin Sibomana" 
-                         class="profile-img">
+                         class="profile-img"
+                         onclick="openGallery(this.src)"
+                         onerror="this.src='https://via.placeholder.com/300x300/667eea/ffffff?text=BENJAMIN'">
                 </div>
             </div>
         </div>
@@ -369,13 +513,13 @@
     <!-- Skills Section -->
     <section id="skills" class="skills-section">
         <div class="container">
-            <h2 class="section-title">Technical Skills</h2>
+            <h2 class="section-title" data-i18n="skills.title">Technical Skills</h2>
             <div class="row">
                 <!-- Backend Skills -->
                 <div class="col-md-4">
-                    <div class="skill-card glow-effect">
+                    <div class="skill-card">
                         <i class="bi bi-gear skill-icon"></i>
-                        <h3>Backend Development</h3>
+                        <h3 data-i18n="skills.backend">Backend Development</h3>
                         <div class="skill-item">
                             <span>Go</span>
                             <div class="progress">
@@ -399,9 +543,9 @@
                 
                 <!-- Database Skills -->
                 <div class="col-md-4">
-                    <div class="skill-card glow-effect">
+                    <div class="skill-card">
                         <i class="bi bi-database skill-icon"></i>
-                        <h3>Databases</h3>
+                        <h3 data-i18n="skills.database">Databases</h3>
                         <div class="skill-item">
                             <span>MySQL</span>
                             <div class="progress">
@@ -419,9 +563,9 @@
                 
                 <!-- Frontend & Mobile -->
                 <div class="col-md-4">
-                    <div class="skill-card glow-effect">
+                    <div class="skill-card">
                         <i class="bi bi-phone skill-icon"></i>
-                        <h3>Frontend & Mobile</h3>
+                        <h3 data-i18n="skills.frontend">Frontend & Mobile</h3>
                         <div class="skill-item">
                             <span>React.js / Next.js</span>
                             <div class="progress">
@@ -449,57 +593,63 @@
     <!-- Projects Section -->
     <section id="projects" class="projects-section">
         <div class="container">
-            <h2 class="section-title">Featured Projects</h2>
+            <h2 class="section-title" data-i18n="projects.title">Featured Projects</h2>
             <div class="row g-4">
                 <div class="col-lg-4 col-md-6">
-                    <div class="project-card glow-effect">
-                        <img src="https://via.placeholder.com/400x200/667eea/ffffff?text=Go+API" 
+                    <div class="project-card">
+                        <img src="https://drive.google.com/uc?export=view&id=YOUR_PROJECT1_IMAGE_ID" 
                              alt="Project 1" 
-                             class="project-img">
+                             class="project-img"
+                             onclick="openGallery(this.src)"
+                             onerror="this.src='https://via.placeholder.com/400x200/667eea/ffffff?text=Go+API'">
                         <div class="project-body">
-                            <h3 class="project-title">RESTful API with Go</h3>
+                            <h3 class="project-title" data-i18n="projects.project1.title">RESTful API with Go</h3>
                             <p class="project-tech">Go • MySQL • JWT</p>
-                            <p class="project-desc">
+                            <p class="project-desc" data-i18n="projects.project1.desc">
                                 Scalable REST API with authentication, rate limiting, and comprehensive documentation.
                             </p>
                             <button class="btn btn-primary rounded-pill px-4" onclick="showProjectDetails(1)">
-                                View Details <i class="bi bi-arrow-right ms-2"></i>
+                                <span data-i18n="projects.viewDetails">View Details</span> <i class="bi bi-arrow-right ms-2"></i>
                             </button>
                         </div>
                     </div>
                 </div>
                 
                 <div class="col-lg-4 col-md-6">
-                    <div class="project-card glow-effect">
-                        <img src="https://via.placeholder.com/400x200/764ba2/ffffff?text=Express+App" 
+                    <div class="project-card">
+                        <img src="https://drive.google.com/uc?export=view&id=YOUR_PROJECT2_IMAGE_ID" 
                              alt="Project 2" 
-                             class="project-img">
+                             class="project-img"
+                             onclick="openGallery(this.src)"
+                             onerror="this.src='https://via.placeholder.com/400x200/764ba2/ffffff?text=Express+App'">
                         <div class="project-body">
-                            <h3 class="project-title">E-Commerce Backend</h3>
+                            <h3 class="project-title" data-i18n="projects.project2.title">E-Commerce Backend</h3>
                             <p class="project-tech">Express • MongoDB • Redis</p>
-                            <p class="project-desc">
+                            <p class="project-desc" data-i18n="projects.project2.desc">
                                 Full-featured e-commerce platform with payment integration and real-time inventory.
                             </p>
                             <button class="btn btn-primary rounded-pill px-4" onclick="showProjectDetails(2)">
-                                View Details <i class="bi bi-arrow-right ms-2"></i>
+                                <span data-i18n="projects.viewDetails">View Details</span> <i class="bi bi-arrow-right ms-2"></i>
                             </button>
                         </div>
                     </div>
                 </div>
                 
                 <div class="col-lg-4 col-md-6">
-                    <div class="project-card glow-effect">
-                        <img src="https://via.placeholder.com/400x200/ff6b6b/ffffff?text=React+App" 
+                    <div class="project-card">
+                        <img src="https://drive.google.com/uc?export=view&id=YOUR_PROJECT3_IMAGE_ID" 
                              alt="Project 3" 
-                             class="project-img">
+                             class="project-img"
+                             onclick="openGallery(this.src)"
+                             onerror="this.src='https://via.placeholder.com/400x200/ff6b6b/ffffff?text=React+App'">
                         <div class="project-body">
-                            <h3 class="project-title">Task Management App</h3>
+                            <h3 class="project-title" data-i18n="projects.project3.title">Task Management App</h3>
                             <p class="project-tech">Next.js • PostgreSQL • Tailwind</p>
-                            <p class="project-desc">
+                            <p class="project-desc" data-i18n="projects.project3.desc">
                                 Modern task management with real-time updates and team collaboration features.
                             </p>
                             <button class="btn btn-primary rounded-pill px-4" onclick="showProjectDetails(3)">
-                                View Details <i class="bi bi-arrow-right ms-2"></i>
+                                <span data-i18n="projects.viewDetails">View Details</span> <i class="bi bi-arrow-right ms-2"></i>
                             </button>
                         </div>
                     </div>
@@ -543,7 +693,7 @@
                         <p><i class="bi bi-facebook"></i> As benjamin</p>
                     </div>
                     <div class="col-md-3 col-6 mb-3">
-                        <p><i class="bi bi-envelope"></i> sibomanabenjamin1@gmail.com</p>
+                        <p><i class="bi bi-envelope"></i> benjaminsibomana1@gmail.com</p>
                     </div>
                 </div>
                 <div class="row mt-3">
@@ -555,10 +705,10 @@
             
             <!-- Copyright -->
             <div class="copyright">
-                <p>&copy; 2024 Benjamin Sibomana. All rights reserved.</p>
+                <p>&copy; 2024 Benjamin Sibomana. <span data-i18n="footer.rights">All rights reserved.</span></p>
                 <p class="mt-2">
                     <i class="bi bi-heart-fill text-danger"></i> 
-                    Crafted with passion for software development
+                    <span data-i18n="footer.crafted">Crafted with passion for software development</span>
                 </p>
             </div>
         </div>
@@ -569,6 +719,254 @@
     
     <!-- Custom JavaScript -->
     <script>
+        // Translations
+        const translations = {
+            en: {
+                nav: {
+                    home: "Home",
+                    skills: "Skills",
+                    projects: "Projects",
+                    contact: "Contact"
+                },
+                hero: {
+                    subtitle: "Software Developer | A2 Degree",
+                    description: "Passionate about building scalable applications with modern technologies. Specialized in backend development with Go, Express, and Fastify.",
+                    hire: "Hire Me",
+                    viewWork: "View Work"
+                },
+                skills: {
+                    title: "Technical Skills",
+                    backend: "Backend Development",
+                    database: "Databases",
+                    frontend: "Frontend & Mobile"
+                },
+                projects: {
+                    title: "Featured Projects",
+                    viewDetails: "View Details",
+                    project1: {
+                        title: "RESTful API with Go",
+                        desc: "Scalable REST API with authentication, rate limiting, and comprehensive documentation."
+                    },
+                    project2: {
+                        title: "E-Commerce Backend",
+                        desc: "Full-featured e-commerce platform with payment integration and real-time inventory."
+                    },
+                    project3: {
+                        title: "Task Management App",
+                        desc: "Modern task management with real-time updates and team collaboration features."
+                    }
+                },
+                footer: {
+                    rights: "All rights reserved.",
+                    crafted: "Crafted with passion for software development"
+                }
+            },
+            rw: {
+                nav: {
+                    home: "Ahabanza",
+                    skills: "Ubumenyi",
+                    projects: "Imyirongo",
+                    contact: "Aho Tugana"
+                },
+                hero: {
+                    subtitle: "Umuhanga mu gukora software | A2 Degree",
+                    description: "Nkunda gukora porogaramu zikoresha tekinoloji zigezweho. Ndaboboka mu gukora backend ukoresheje Go, Express, na Fastify.",
+                    hire: "Nkoreshe",
+                    viewWork: "Reba Imirimo"
+                },
+                skills: {
+                    title: "Ubumenyi bwihariye",
+                    backend: "Gukora Backend",
+                    database: "Ububiko bw'amakuru",
+                    frontend: "Frontend na Mobile"
+                },
+                projects: {
+                    title: "Imyirongo y'ibanze",
+                    viewDetails: "Reba Byinshi",
+                    project1: {
+                        title: "RESTful API na Go",
+                        desc: "REST API ikoreshwa neje, ifite authentication na rate limiting."
+                    },
+                    project2: {
+                        title: "E-Commerce Backend",
+                        desc: "Urubuga rwo kugurisha no kugura ukoresheje Express na MongoDB."
+                    },
+                    project3: {
+                        title: "Porogaramu yo Gucunga Imirimo",
+                        desc: "Gucunga imirimo mu gihe nyacyo hamwe na team collaboration."
+                    }
+                },
+                footer: {
+                    rights: "Uburenganzira bwose bwemejwe.",
+                    crafted: "Byakozwe n'urukundo rwo gukora software"
+                }
+            }
+        };
+
+        let currentLang = 'en';
+        let currentTheme = 'light';
+
+        // Hide loading animation
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                document.getElementById('loading').classList.add('fade-out');
+            }, 500);
+        });
+
+        // Theme Toggle
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('themeIcon');
+            const themeText = document.getElementById('themeText');
+            
+            if (currentTheme === 'light') {
+                body.setAttribute('data-theme', 'dark');
+                themeIcon.className = 'bi bi-moon-fill';
+                themeText.textContent = currentLang === 'en' ? 'Dark' : 'Ijoro';
+                currentTheme = 'dark';
+            } else {
+                body.setAttribute('data-theme', 'light');
+                themeIcon.className = 'bi bi-sun-fill';
+                themeText.textContent = currentLang === 'en' ? 'Light' : 'Umuseke';
+                currentTheme = 'light';
+            }
+            
+            // Save theme preference
+            localStorage.setItem('theme', currentTheme);
+        }
+
+        // Language Toggle
+        function toggleLanguage() {
+            const langText = document.getElementById('langText');
+            
+            if (currentLang === 'en') {
+                currentLang = 'rw';
+                langText.textContent = 'RW';
+                document.querySelector('.theme-toggle span').textContent = currentTheme === 'light' ? 'Umuseke' : 'Ijoro';
+            } else {
+                currentLang = 'en';
+                langText.textContent = 'EN';
+                document.querySelector('.theme-toggle span').textContent = currentTheme === 'light' ? 'Light' : 'Dark';
+            }
+            
+            // Update all translations
+            updateLanguage(currentLang);
+            
+            // Save language preference
+            localStorage.setItem('language', currentLang);
+        }
+
+        // Update language function
+        function updateLanguage(lang) {
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(element => {
+                const keys = element.getAttribute('data-i18n').split('.');
+                let value = translations[lang];
+                for (let key of keys) {
+                    if (value) value = value[key];
+                }
+                if (value) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        element.placeholder = value;
+                    } else {
+                        element.textContent = value;
+                    }
+                }
+            });
+        }
+
+        // Gallery functions
+        function openGallery(src) {
+            const modal = document.getElementById('galleryModal');
+            const galleryImg = document.getElementById('galleryImage');
+            galleryImg.src = src;
+            modal.classList.add('active');
+        }
+
+        function closeGallery() {
+            document.getElementById('galleryModal').classList.remove('active');
+        }
+
+        // Close gallery with ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeGallery();
+            }
+        });
+
+        // Close gallery when clicking outside
+        document.getElementById('galleryModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeGallery();
+            }
+        });
+
+        // Project details function
+        function showProjectDetails(projectId) {
+            const projects = {
+                1: {
+                    title: currentLang === 'en' ? 'RESTful API with Go' : 'RESTful API na Go',
+                    description: currentLang === 'en' ? 
+                        'A scalable REST API built with Go, featuring JWT authentication, rate limiting, and comprehensive Swagger documentation.' :
+                        'REST API ikozwe na Go, ifite JWT authentication, rate limiting, na Swagger documentation.',
+                    tech: ['Go', 'MySQL', 'JWT', 'Redis', 'Swagger']
+                },
+                2: {
+                    title: currentLang === 'en' ? 'E-Commerce Backend' : 'E-Commerce Backend',
+                    description: currentLang === 'en' ?
+                        'Full-featured e-commerce platform with Express.js, MongoDB, and Redis. Includes payment integration (Stripe) and real-time inventory.' :
+                        'Urubuga rwo kugurisha no kugura rukozwe na Express.js, MongoDB, na Redis. Harimo Stripe yo kwishyura.',
+                    tech: ['Express.js', 'MongoDB', 'Redis', 'Stripe API', 'Socket.io']
+                },
+                3: {
+                    title: currentLang === 'en' ? 'Task Management App' : 'Porogaramu yo Gucunga Imirimo',
+                    description: currentLang === 'en' ?
+                        'Modern task management with Next.js and PostgreSQL. Features real-time updates and team collaboration.' :
+                        'Gucunga imirimo ukoresheje Next.js na PostgreSQL. Ihinduka mu gihe nyacyo na team collaboration.',
+                    tech: ['Next.js', 'PostgreSQL', 'Tailwind CSS', 'Prisma', 'WebSocket']
+                }
+            };
+            
+            const project = projects[projectId];
+            if (project) {
+                alert(`📌 ${project.title}\n\n📝 ${project.description}\n\n🔧 ${project.tech.join(', ')}`);
+            }
+        }
+
+        // Load saved preferences
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load theme
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                currentTheme = savedTheme;
+                document.body.setAttribute('data-theme', savedTheme);
+                const themeIcon = document.getElementById('themeIcon');
+                const themeText = document.getElementById('themeText');
+                if (savedTheme === 'dark') {
+                    themeIcon.className = 'bi bi-moon-fill';
+                    themeText.textContent = currentLang === 'en' ? 'Dark' : 'Ijoro';
+                }
+            }
+            
+            // Load language
+            const savedLang = localStorage.getItem('language');
+            if (savedLang) {
+                currentLang = savedLang;
+                document.getElementById('langText').textContent = savedLang === 'en' ? 'EN' : 'RW';
+                updateLanguage(savedLang);
+            }
+            
+            // Animate progress bars
+            animateProgressBars();
+            
+            // Update copyright year
+            const yearElement = document.querySelector('.copyright p');
+            if (yearElement) {
+                const currentYear = new Date().getFullYear();
+                yearElement.innerHTML = yearElement.innerHTML.replace('2024', currentYear);
+            }
+        });
+
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -587,41 +985,11 @@
         window.addEventListener('scroll', function() {
             const navbar = document.querySelector('.navbar');
             if (window.scrollY > 50) {
-                navbar.style.background = 'rgba(255, 255, 255, 0.98)';
-                navbar.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
-            } else {
-                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-                navbar.style.backdropFilter = 'blur(10px)';
+                navbar.style.boxShadow = '0 2px 20px var(--shadow-color)';
             }
         });
 
-        // Project details modal function
-        function showProjectDetails(projectId) {
-            const projects = {
-                1: {
-                    title: 'RESTful API with Go',
-                    description: 'A scalable REST API built with Go, featuring JWT authentication, rate limiting, and comprehensive Swagger documentation. Implements clean architecture and best practices.',
-                    tech: ['Go', 'MySQL', 'JWT', 'Redis', 'Swagger']
-                },
-                2: {
-                    title: 'E-Commerce Backend',
-                    description: 'Full-featured e-commerce platform with Express.js, MongoDB, and Redis. Includes payment integration (Stripe), real-time inventory management, and admin dashboard.',
-                    tech: ['Express.js', 'MongoDB', 'Redis', 'Stripe API', 'Socket.io']
-                },
-                3: {
-                    title: 'Task Management App',
-                    description: 'Modern task management application built with Next.js and PostgreSQL. Features real-time updates, team collaboration, and drag-drop interface.',
-                    tech: ['Next.js', 'PostgreSQL', 'Tailwind CSS', 'Prisma', 'WebSocket']
-                }
-            };
-            
-            const project = projects[projectId];
-            if (project) {
-                alert(`Project: ${project.title}\n\nDescription: ${project.description}\n\nTechnologies: ${project.tech.join(', ')}`);
-            }
-        }
-
-        // Animate progress bars on scroll
+        // Animate progress bars when skills section is in view
         function animateProgressBars() {
             const progressBars = document.querySelectorAll('.progress-bar');
             progressBars.forEach(bar => {
@@ -629,11 +997,11 @@
                 bar.style.width = '0%';
                 setTimeout(() => {
                     bar.style.width = width;
-                }, 100);
+                }, 200);
             });
         }
 
-        // Trigger animation when skills section is in view
+        // Intersection Observer for skills section
         const skillsSection = document.querySelector('#skills');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -643,49 +1011,27 @@
             });
         }, { threshold: 0.5 });
 
-        observer.observe(skillsSection);
-
-        // Add typing effect to subtitle
-        const subtitle = document.querySelector('.hero-subtitle');
-        const originalText = subtitle.innerHTML;
-        subtitle.innerHTML = '';
-        
-        let i = 0;
-        function typeWriter() {
-            if (i < originalText.length) {
-                subtitle.innerHTML += originalText.charAt(i);
-                i++;
-                setTimeout(typeWriter, 100);
-            }
+        if (skillsSection) {
+            observer.observe(skillsSection);
         }
 
-        // Start typing effect when page loads
-        window.addEventListener('load', typeWriter);
-
-        // Interactive hover effects for skill cards
-        document.querySelectorAll('.skill-card').forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                card.style.transform = `perspective(1000px) rotateX(${y/20}deg) rotateY(${x/20}deg) translateY(-10px)`;
-            });
+        // Typing effect for subtitle
+        const subtitle = document.querySelector('.hero-subtitle span');
+        if (subtitle) {
+            const originalText = subtitle.textContent;
+            subtitle.textContent = '';
             
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'translateY(-10px)';
-            });
-        });
-
-        // Dynamic year in copyright
-        document.addEventListener('DOMContentLoaded', function() {
-            const yearElement = document.querySelector('.copyright p');
-            if (yearElement) {
-                const currentYear = new Date().getFullYear();
-                yearElement.innerHTML = yearElement.innerHTML.replace('2024', currentYear);
+            let i = 0;
+            function typeWriter() {
+                if (i < originalText.length) {
+                    subtitle.textContent += originalText.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 50);
+                }
             }
-        });
+            
+            setTimeout(typeWriter, 1000);
+        }
     </script>
 </body>
 </html>
-
