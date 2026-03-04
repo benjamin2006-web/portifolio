@@ -510,7 +510,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6 text-center mt-5 mt-lg-0">
-                    <img src="https://via.placeholder.com/300x300/667eea/ffffff?text=BENJAMIN" 
+                    <img src="https://drive.google.com/uc?export=view&id=108wBLqFy9E8fP1BqZfHOIFv3h9PH1YQl" 
                          alt="Benjamin Sibomana" 
                          class="profile-img"
                          onclick="openGallery(this.src)"
@@ -607,7 +607,7 @@
             <div class="row g-4">
                 <div class="col-lg-4 col-md-6">
                     <div class="project-card">
-                        <img src="https://via.placeholder.com/400x200/667eea/ffffff?text=Go+API" 
+                        <img src="https://drive.google.com/uc?export=view&id=YOUR_PROJECT1_IMAGE_ID" 
                              alt="Project 1" 
                              class="project-img"
                              onclick="openGallery(this.src)"
@@ -627,7 +627,7 @@
                 
                 <div class="col-lg-4 col-md-6">
                     <div class="project-card">
-                        <img src="https://via.placeholder.com/400x200/764ba2/ffffff?text=Express+App" 
+                        <img src="https://drive.google.com/uc?export=view&id=YOUR_PROJECT2_IMAGE_ID" 
                              alt="Project 2" 
                              class="project-img"
                              onclick="openGallery(this.src)"
@@ -647,7 +647,7 @@
                 
                 <div class="col-lg-4 col-md-6">
                     <div class="project-card">
-                        <img src="https://via.placeholder.com/400x200/ff6b6b/ffffff?text=React+App" 
+                        <img src="https://drive.google.com/uc?export=view&id=YOUR_PROJECT3_IMAGE_ID" 
                              alt="Project 3" 
                              class="project-img"
                              onclick="openGallery(this.src)"
@@ -854,11 +854,17 @@
             if (currentLang === 'en') {
                 currentLang = 'rw';
                 langText.textContent = 'RW';
-                document.querySelector('.theme-toggle span').textContent = currentTheme === 'light' ? 'Umuseke' : 'Ijoro';
+                const themeText = document.querySelector('.theme-toggle span');
+                if (themeText) {
+                    themeText.textContent = currentTheme === 'light' ? 'Umuseke' : 'Ijoro';
+                }
             } else {
                 currentLang = 'en';
                 langText.textContent = 'EN';
-                document.querySelector('.theme-toggle span').textContent = currentTheme === 'light' ? 'Light' : 'Dark';
+                const themeText = document.querySelector('.theme-toggle span');
+                if (themeText) {
+                    themeText.textContent = currentTheme === 'light' ? 'Light' : 'Dark';
+                }
             }
             
             updateLanguage(currentLang);
