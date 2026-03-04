@@ -12,6 +12,9 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
     <style>
         * {
             font-family: 'Poppins', sans-serif;
@@ -30,6 +33,9 @@
             --footer-text: white;
             --navbar-bg: rgba(255,255,255,0.95);
             --shadow-color: rgba(0,0,0,0.1);
+            --form-bg: rgba(255,255,255,0.95);
+            --input-bg: white;
+            --border-color: #e0e0e0;
         }
         
         /* Dark Mode */
@@ -44,6 +50,9 @@
             --footer-text: #fff;
             --navbar-bg: rgba(30,30,46,0.95);
             --shadow-color: rgba(255,255,255,0.1);
+            --form-bg: #2a2a3a;
+            --input-bg: #1a1a2e;
+            --border-color: #444;
         }
         
         body {
@@ -259,6 +268,164 @@
             line-height: 1.6;
         }
         
+        /* Contact Form Section */
+        .contact-section {
+            padding: 80px 0;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 50px;
+            margin: 50px 0;
+        }
+        
+        .contact-form {
+            background: var(--form-bg);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 20px 40px var(--shadow-color);
+            backdrop-filter: blur(10px);
+        }
+        
+        .form-control, .form-select {
+            background: var(--input-bg);
+            border: 2px solid var(--border-color);
+            color: var(--text-color);
+            padding: 12px;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+            background: var(--input-bg);
+            color: var(--text-color);
+        }
+        
+        .form-control::placeholder {
+            color: var(--text-light);
+            opacity: 0.7;
+        }
+        
+        .form-label {
+            color: var(--text-color);
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        
+        .btn-send {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 5px;
+        }
+        
+        .btn-send:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+            color: white;
+        }
+        
+        .btn-gmail {
+            background: #EA4335;
+        }
+        
+        .btn-whatsapp {
+            background: #25D366;
+        }
+        
+        .error-message {
+            color: #dc3545;
+            font-size: 0.875rem;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .error-message.show {
+            display: block;
+            animation: shake 0.5s ease;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        
+        .is-invalid {
+            border-color: #dc3545 !important;
+        }
+        
+        .is-valid {
+            border-color: #28a745 !important;
+        }
+        
+        /* Success Modal */
+        .success-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 10001;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .success-modal.show {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: var(--form-bg);
+            border-radius: 30px;
+            padding: 40px;
+            text-align: center;
+            max-width: 400px;
+            animation: slideUp 0.3s ease;
+        }
+        
+        .modal-content i {
+            font-size: 4rem;
+            color: #28a745;
+            margin-bottom: 20px;
+        }
+        
+        .modal-content h3 {
+            color: var(--text-color);
+            margin-bottom: 15px;
+        }
+        
+        .modal-content p {
+            color: var(--text-light);
+            margin-bottom: 25px;
+        }
+        
+        .modal-content button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
         /* Footer */
         .footer {
             background: var(--footer-bg);
@@ -348,9 +515,18 @@
                 padding: 5px 10px;
                 font-size: 0.9rem;
             }
+            
+            .contact-form {
+                padding: 20px;
+            }
+            
+            .btn-send {
+                width: 100%;
+                margin: 5px 0;
+            }
         }
 
-        /* Loading Animation - Fixed */
+        /* Loading Animation */
         .loading {
             position: fixed;
             top: 0;
@@ -421,22 +597,22 @@
             font-size: 40px;
             cursor: pointer;
         }
-
-        /* Fallback for images */
-        .img-fallback {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-        }
     </style>
 </head>
 <body data-theme="light">
-    <!-- Loading Animation - Fixed -->
+    <!-- Loading Animation -->
     <div class="loading" id="loading">
         <div class="loader"></div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="success-modal" id="successModal">
+        <div class="modal-content">
+            <i class="bi bi-check-circle-fill"></i>
+            <h3>Message Sent!</h3>
+            <p>Your message has been sent successfully. I'll get back to you soon!</p>
+            <button onclick="closeSuccessModal()">Close</button>
+        </div>
     </div>
 
     <!-- Image Gallery Modal -->
@@ -668,8 +844,57 @@
         </div>
     </section>
 
+    <!-- Contact Form Section (NEW) -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2 class="section-title" data-i18n="contact.title">Get In Touch</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="contact-form animate__animated animate__fadeInUp">
+                        <form id="contactForm" onsubmit="return false;">
+                            <!-- Name Field -->
+                            <div class="mb-4">
+                                <label for="name" class="form-label" data-i18n="contact.name">Full Name</label>
+                                <input type="text" class="form-control" id="name" placeholder="Enter your full name" data-i18n-placeholder="contact.namePlaceholder">
+                                <div class="error-message" id="nameError" data-i18n="contact.nameError">Name is required</div>
+                            </div>
+                            
+                            <!-- Email Field -->
+                            <div class="mb-4">
+                                <label for="email" class="form-label" data-i18n="contact.email">Email Address</label>
+                                <input type="email" class="form-control" id="email" placeholder="Enter your email" data-i18n-placeholder="contact.emailPlaceholder">
+                                <div class="error-message" id="emailError" data-i18n="contact.emailError">Valid email is required</div>
+                            </div>
+                            
+                            <!-- Message Field -->
+                            <div class="mb-4">
+                                <label for="message" class="form-label" data-i18n="contact.message">Message</label>
+                                <textarea class="form-control" id="message" rows="5" placeholder="Enter your message" data-i18n-placeholder="contact.messagePlaceholder"></textarea>
+                                <div class="error-message" id="messageError" data-i18n="contact.messageError">Message is required</div>
+                            </div>
+                            
+                            <!-- Buttons -->
+                            <div class="row">
+                                <div class="col-md-6 mb-3 mb-md-0">
+                                    <button type="button" class="btn btn-send btn-gmail w-100" onclick="sendViaGmail()">
+                                        <i class="bi bi-envelope me-2"></i> <span data-i18n="contact.sendGmail">Send via Gmail</span>
+                                    </button>
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="button" class="btn btn-send btn-whatsapp w-100" onclick="sendViaWhatsApp()">
+                                        <i class="bi bi-whatsapp me-2"></i> <span data-i18n="contact.sendWhatsApp">Send via WhatsApp</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
-    <footer id="contact" class="footer">
+    <footer class="footer">
         <div class="container">
             <!-- Social Links -->
             <div class="social-links">
@@ -727,7 +952,7 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
-    <!-- Custom JavaScript - Fixed -->
+    <!-- Custom JavaScript -->
     <script>
         // Translations
         const translations = {
@@ -765,6 +990,20 @@
                         title: "Task Management App",
                         desc: "Modern task management with real-time updates and team collaboration features."
                     }
+                },
+                contact: {
+                    title: "Get In Touch",
+                    name: "Full Name",
+                    namePlaceholder: "Enter your full name",
+                    nameError: "Name is required",
+                    email: "Email Address",
+                    emailPlaceholder: "Enter your email",
+                    emailError: "Valid email is required",
+                    message: "Message",
+                    messagePlaceholder: "Enter your message",
+                    messageError: "Message is required",
+                    sendGmail: "Send via Gmail",
+                    sendWhatsApp: "Send via WhatsApp"
                 },
                 footer: {
                     rights: "All rights reserved.",
@@ -806,6 +1045,20 @@
                         desc: "Gucunga imirimo mu gihe nyacyo hamwe na team collaboration."
                     }
                 },
+                contact: {
+                    title: "Twandikire",
+                    name: "Izina Ryuzuye",
+                    namePlaceholder: "Andika izina ryawe",
+                    nameError: "Izina rirakenewe",
+                    email: "Imeyili",
+                    emailPlaceholder: "Andika imeyili yawe",
+                    emailError: "Imeyili ikenewe",
+                    message: "Ubutumwa",
+                    messagePlaceholder: "Andika ubutumwa bwawe",
+                    messageError: "Ubutumwa burakenewe",
+                    sendGmail: "Ohereza kuri Gmail",
+                    sendWhatsApp: "Ohereza kuri WhatsApp"
+                },
                 footer: {
                     rights: "Uburenganzira bwose bwemejwe.",
                     crafted: "Byakozwe n'urukundo rwo gukora software"
@@ -816,7 +1069,7 @@
         let currentLang = 'en';
         let currentTheme = 'light';
 
-        // Hide loading animation - Fixed
+        // Hide loading animation
         window.addEventListener('load', function() {
             setTimeout(function() {
                 const loading = document.getElementById('loading');
@@ -881,7 +1134,11 @@
                     if (value) value = value[key];
                 }
                 if (value) {
-                    element.textContent = value;
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        element.placeholder = value;
+                    } else {
+                        element.textContent = value;
+                    }
                 }
             });
         }
@@ -952,6 +1209,156 @@
             }
         }
 
+        // ========== CONTACT FORM FUNCTIONS ==========
+
+        // Validate form fields
+        function validateForm() {
+            let isValid = true;
+            
+            // Get form values
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
+            
+            // Get error elements
+            const nameError = document.getElementById('nameError');
+            const emailError = document.getElementById('emailError');
+            const messageError = document.getElementById('messageError');
+            
+            // Get input elements
+            const nameInput = document.getElementById('name');
+            const emailInput = document.getElementById('email');
+            const messageInput = document.getElementById('message');
+            
+            // Reset errors
+            nameError.classList.remove('show');
+            emailError.classList.remove('show');
+            messageError.classList.remove('show');
+            
+            nameInput.classList.remove('is-invalid', 'is-valid');
+            emailInput.classList.remove('is-invalid', 'is-valid');
+            messageInput.classList.remove('is-invalid', 'is-valid');
+            
+            // Validate name
+            if (!name) {
+                nameError.classList.add('show');
+                nameInput.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                nameInput.classList.add('is-valid');
+            }
+            
+            // Validate email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email || !emailRegex.test(email)) {
+                emailError.classList.add('show');
+                emailInput.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                emailInput.classList.add('is-valid');
+            }
+            
+            // Validate message
+            if (!message) {
+                messageError.classList.add('show');
+                messageInput.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                messageInput.classList.add('is-valid');
+            }
+            
+            return isValid;
+        }
+
+        // Send via Gmail
+        function sendViaGmail() {
+            if (!validateForm()) {
+                return;
+            }
+            
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
+            
+            // Create email body
+            const subject = `Portfolio Message from ${name}`;
+            const body = `Name: ${name}%0AEmail: ${email}%0A%0AMessage:%0A${message}`;
+            
+            // Create mailto link
+            const mailtoLink = `mailto:benjaminsibomana1@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
+            
+            // Open default email client
+            window.location.href = mailtoLink;
+            
+            // Show success modal
+            showSuccessModal();
+            
+            // Clear form
+            clearForm();
+        }
+
+        // Send via WhatsApp
+        function sendViaWhatsApp() {
+            if (!validateForm()) {
+                return;
+            }
+            
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
+            
+            // Format WhatsApp message
+            const whatsappMessage = `*Portfolio Message*%0A%0A*Name:* ${name}%0A*Email:* ${email}%0A%0A*Message:*%0A${message}`;
+            
+            // WhatsApp number
+            const phoneNumber = '250792098874';
+            
+            // Create WhatsApp link
+            const whatsappLink = `https://wa.me/${phoneNumber}?text=${whatsappMessage}`;
+            
+            // Open WhatsApp
+            window.open(whatsappLink, '_blank');
+            
+            // Show success modal
+            showSuccessModal();
+            
+            // Clear form
+            clearForm();
+        }
+
+        // Clear form fields
+        function clearForm() {
+            document.getElementById('name').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('message').value = '';
+            
+            // Remove validation classes
+            document.getElementById('name').classList.remove('is-valid', 'is-invalid');
+            document.getElementById('email').classList.remove('is-valid', 'is-invalid');
+            document.getElementById('message').classList.remove('is-valid', 'is-invalid');
+            
+            // Hide error messages
+            document.getElementById('nameError').classList.remove('show');
+            document.getElementById('emailError').classList.remove('show');
+            document.getElementById('messageError').classList.remove('show');
+        }
+
+        // Show success modal
+        function showSuccessModal() {
+            const modal = document.getElementById('successModal');
+            modal.classList.add('show');
+            
+            // Auto hide after 3 seconds
+            setTimeout(() => {
+                closeSuccessModal();
+            }, 3000);
+        }
+
+        // Close success modal
+        function closeSuccessModal() {
+            document.getElementById('successModal').classList.remove('show');
+        }
+
         // Load saved preferences
         document.addEventListener('DOMContentLoaded', function() {
             // Load theme
@@ -998,6 +1405,38 @@
                     });
                 }
             });
+        });
+
+        // Real-time validation on input
+        document.getElementById('name')?.addEventListener('input', function() {
+            if (this.value.trim()) {
+                this.classList.remove('is-invalid');
+                this.classList.add('is-valid');
+                document.getElementById('nameError').classList.remove('show');
+            } else {
+                this.classList.remove('is-valid');
+            }
+        });
+
+        document.getElementById('email')?.addEventListener('input', function() {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (this.value.trim() && emailRegex.test(this.value.trim())) {
+                this.classList.remove('is-invalid');
+                this.classList.add('is-valid');
+                document.getElementById('emailError').classList.remove('show');
+            } else {
+                this.classList.remove('is-valid');
+            }
+        });
+
+        document.getElementById('message')?.addEventListener('input', function() {
+            if (this.value.trim()) {
+                this.classList.remove('is-invalid');
+                this.classList.add('is-valid');
+                document.getElementById('messageError').classList.remove('show');
+            } else {
+                this.classList.remove('is-valid');
+            }
         });
     </script>
 </body>
