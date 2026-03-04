@@ -350,24 +350,24 @@
             }
         }
 
-        /* Loading Animation */
+        /* Loading Animation - Fixed */
         .loading {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: var(--bg-gradient-start);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
         }
         
-        .loading.fade-out {
+        .loading.hidden {
             opacity: 0;
-            pointer-events: none;
+            visibility: hidden;
         }
         
         .loader {
@@ -421,10 +421,20 @@
             font-size: 40px;
             cursor: pointer;
         }
+
+        /* Fallback for images */
+        .img-fallback {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body data-theme="light">
-    <!-- Loading Animation -->
+    <!-- Loading Animation - Fixed -->
     <div class="loading" id="loading">
         <div class="loader"></div>
     </div>
@@ -484,7 +494,7 @@
                     <h1 class="hero-title">Benjamin Sibomana</h1>
                     <p class="hero-subtitle">
                         <i class="bi bi-arrow-right-circle me-2"></i>
-                        <span data-i18n="hero.subtitle">Software Developer | A2 Degree</span>
+                        <span class="hero-subtitle-text" data-i18n="hero.subtitle">Software Developer | A2 Degree</span>
                     </p>
                     <p class="mb-4" style="font-size: 1.1rem; opacity: 0.9;" data-i18n="hero.description">
                         Passionate about building scalable applications with modern technologies.
@@ -500,11 +510,11 @@
                     </div>
                 </div>
                 <div class="col-lg-6 text-center mt-5 mt-lg-0">
-                    <img src="https://drive.google.com/uc?export=view&id=YOUR_GOOGLE_DRIVE_IMAGE_ID" 
+                    <img src="https://via.placeholder.com/300x300/667eea/ffffff?text=BENJAMIN" 
                          alt="Benjamin Sibomana" 
                          class="profile-img"
                          onclick="openGallery(this.src)"
-                         onerror="this.src='https://via.placeholder.com/300x300/667eea/ffffff?text=BENJAMIN'">
+                         onerror="this.onerror=null; this.src='https://via.placeholder.com/300x300/667eea/ffffff?text=BENJAMIN'">
                 </div>
             </div>
         </div>
@@ -597,11 +607,11 @@
             <div class="row g-4">
                 <div class="col-lg-4 col-md-6">
                     <div class="project-card">
-                        <img src="https://drive.google.com/uc?export=view&id=YOUR_PROJECT1_IMAGE_ID" 
+                        <img src="https://via.placeholder.com/400x200/667eea/ffffff?text=Go+API" 
                              alt="Project 1" 
                              class="project-img"
                              onclick="openGallery(this.src)"
-                             onerror="this.src='https://via.placeholder.com/400x200/667eea/ffffff?text=Go+API'">
+                             onerror="this.onerror=null; this.src='https://via.placeholder.com/400x200/667eea/ffffff?text=Go+API'">
                         <div class="project-body">
                             <h3 class="project-title" data-i18n="projects.project1.title">RESTful API with Go</h3>
                             <p class="project-tech">Go • MySQL • JWT</p>
@@ -617,11 +627,11 @@
                 
                 <div class="col-lg-4 col-md-6">
                     <div class="project-card">
-                        <img src="https://drive.google.com/uc?export=view&id=YOUR_PROJECT2_IMAGE_ID" 
+                        <img src="https://via.placeholder.com/400x200/764ba2/ffffff?text=Express+App" 
                              alt="Project 2" 
                              class="project-img"
                              onclick="openGallery(this.src)"
-                             onerror="this.src='https://via.placeholder.com/400x200/764ba2/ffffff?text=Express+App'">
+                             onerror="this.onerror=null; this.src='https://via.placeholder.com/400x200/764ba2/ffffff?text=Express+App'">
                         <div class="project-body">
                             <h3 class="project-title" data-i18n="projects.project2.title">E-Commerce Backend</h3>
                             <p class="project-tech">Express • MongoDB • Redis</p>
@@ -637,11 +647,11 @@
                 
                 <div class="col-lg-4 col-md-6">
                     <div class="project-card">
-                        <img src="https://drive.google.com/uc?export=view&id=YOUR_PROJECT3_IMAGE_ID" 
+                        <img src="https://via.placeholder.com/400x200/ff6b6b/ffffff?text=React+App" 
                              alt="Project 3" 
                              class="project-img"
                              onclick="openGallery(this.src)"
-                             onerror="this.src='https://via.placeholder.com/400x200/ff6b6b/ffffff?text=React+App'">
+                             onerror="this.onerror=null; this.src='https://via.placeholder.com/400x200/ff6b6b/ffffff?text=React+App'">
                         <div class="project-body">
                             <h3 class="project-title" data-i18n="projects.project3.title">Task Management App</h3>
                             <p class="project-tech">Next.js • PostgreSQL • Tailwind</p>
@@ -717,7 +727,7 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
-    <!-- Custom JavaScript -->
+    <!-- Custom JavaScript - Fixed -->
     <script>
         // Translations
         const translations = {
@@ -806,10 +816,13 @@
         let currentLang = 'en';
         let currentTheme = 'light';
 
-        // Hide loading animation
+        // Hide loading animation - Fixed
         window.addEventListener('load', function() {
-            setTimeout(() => {
-                document.getElementById('loading').classList.add('fade-out');
+            setTimeout(function() {
+                const loading = document.getElementById('loading');
+                if (loading) {
+                    loading.classList.add('hidden');
+                }
             }, 500);
         });
 
@@ -831,7 +844,6 @@
                 currentTheme = 'light';
             }
             
-            // Save theme preference
             localStorage.setItem('theme', currentTheme);
         }
 
@@ -849,10 +861,7 @@
                 document.querySelector('.theme-toggle span').textContent = currentTheme === 'light' ? 'Light' : 'Dark';
             }
             
-            // Update all translations
             updateLanguage(currentLang);
-            
-            // Save language preference
             localStorage.setItem('language', currentLang);
         }
 
@@ -866,11 +875,7 @@
                     if (value) value = value[key];
                 }
                 if (value) {
-                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                        element.placeholder = value;
-                    } else {
-                        element.textContent = value;
-                    }
+                    element.textContent = value;
                 }
             });
         }
@@ -879,12 +884,17 @@
         function openGallery(src) {
             const modal = document.getElementById('galleryModal');
             const galleryImg = document.getElementById('galleryImage');
-            galleryImg.src = src;
-            modal.classList.add('active');
+            if (modal && galleryImg) {
+                galleryImg.src = src;
+                modal.classList.add('active');
+            }
         }
 
         function closeGallery() {
-            document.getElementById('galleryModal').classList.remove('active');
+            const modal = document.getElementById('galleryModal');
+            if (modal) {
+                modal.classList.remove('active');
+            }
         }
 
         // Close gallery with ESC key
@@ -895,11 +905,14 @@
         });
 
         // Close gallery when clicking outside
-        document.getElementById('galleryModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeGallery();
-            }
-        });
+        const galleryModal = document.getElementById('galleryModal');
+        if (galleryModal) {
+            galleryModal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeGallery();
+                }
+            });
+        }
 
         // Project details function
         function showProjectDetails(projectId) {
@@ -942,7 +955,7 @@
                 document.body.setAttribute('data-theme', savedTheme);
                 const themeIcon = document.getElementById('themeIcon');
                 const themeText = document.getElementById('themeText');
-                if (savedTheme === 'dark') {
+                if (savedTheme === 'dark' && themeIcon && themeText) {
                     themeIcon.className = 'bi bi-moon-fill';
                     themeText.textContent = currentLang === 'en' ? 'Dark' : 'Ijoro';
                 }
@@ -952,12 +965,12 @@
             const savedLang = localStorage.getItem('language');
             if (savedLang) {
                 currentLang = savedLang;
-                document.getElementById('langText').textContent = savedLang === 'en' ? 'EN' : 'RW';
+                const langText = document.getElementById('langText');
+                if (langText) {
+                    langText.textContent = savedLang === 'en' ? 'EN' : 'RW';
+                }
                 updateLanguage(savedLang);
             }
-            
-            // Animate progress bars
-            animateProgressBars();
             
             // Update copyright year
             const yearElement = document.querySelector('.copyright p');
@@ -980,58 +993,6 @@
                 }
             });
         });
-
-        // Navbar background change on scroll
-        window.addEventListener('scroll', function() {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 50) {
-                navbar.style.boxShadow = '0 2px 20px var(--shadow-color)';
-            }
-        });
-
-        // Animate progress bars when skills section is in view
-        function animateProgressBars() {
-            const progressBars = document.querySelectorAll('.progress-bar');
-            progressBars.forEach(bar => {
-                const width = bar.style.width;
-                bar.style.width = '0%';
-                setTimeout(() => {
-                    bar.style.width = width;
-                }, 200);
-            });
-        }
-
-        // Intersection Observer for skills section
-        const skillsSection = document.querySelector('#skills');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    animateProgressBars();
-                }
-            });
-        }, { threshold: 0.5 });
-
-        if (skillsSection) {
-            observer.observe(skillsSection);
-        }
-
-        // Typing effect for subtitle
-        const subtitle = document.querySelector('.hero-subtitle span');
-        if (subtitle) {
-            const originalText = subtitle.textContent;
-            subtitle.textContent = '';
-            
-            let i = 0;
-            function typeWriter() {
-                if (i < originalText.length) {
-                    subtitle.textContent += originalText.charAt(i);
-                    i++;
-                    setTimeout(typeWriter, 50);
-                }
-            }
-            
-            setTimeout(typeWriter, 1000);
-        }
     </script>
 </body>
 </html>
